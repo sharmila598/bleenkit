@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 import helmet from 'helmet'
 dotenv.config()
 import cookieParser from 'cookie-parser'
-
+import connectDB from './config/connectDB.js'
 
 
 
@@ -20,14 +20,16 @@ app.use(morgan('combined'));
 app.use(helmet({
    crossOriginResourcePolicy: false
 }))
+const PORT = 8080 || process.env.PORT
 app.get("/", (request, response) => {
    ///server to client
    response.json({
-      message: "Server is running"
+      message: "Server is running" + PORT
    })
 
 })
-const PORT = 8080 || process.env.PORT
+connectDB()
+
 app.listen(PORT, () => {
    console.log("Server is Running at", PORT)
 })
